@@ -1,4 +1,4 @@
-# Personal SocialNetwork
+# Personal(Or Kiwi, Name in discuss) SocialNetwork
 ![mstile-150x150](https://user-images.githubusercontent.com/12539219/152756059-b01479a8-f6c6-4d30-9e0c-dcda646cab39.png)
 
 ( Is a Work in progress and i dont know if it really works, test under your own risk)
@@ -6,7 +6,7 @@
 
 Personal SocialNetwork is an open source and fully decentralized social network powered by the Gab Platform. This pretend to be a FORK of GAB.Com, should be a open source federated facebook clone.
 
-Personal dont have any relationship with GAB or their ideologys, here only take the source and will try to open it to everybody, this is not GAB, this is a totally new FORK.
+## Personal dont have any relationship with GAB or their ideologys, here only take the source and will try to open it to everybody, this is not GAB, this is a totally new FORK with no the GAB political connotations.
 
 #GAB
 
