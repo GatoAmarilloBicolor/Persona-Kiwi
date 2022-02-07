@@ -1,6 +1,8 @@
 # Personal SocialNetwork
 ![mstile-150x150](https://user-images.githubusercontent.com/12539219/152756059-b01479a8-f6c6-4d30-9e0c-dcda646cab39.png)
 
+( Is a Work in progress and i dont know if it really works, test under your own risk)
+
 
 Personal SocialNetwork is an open source and fully decentralized social network powered by the Gab Platform. It is the new social network of Gab.com. This change was made to further Gab's committment to it's users trust and privacy online. And, by offering decentralization and federation, Gab further demonstrates a lack of interest in the ownership of your data.
 
