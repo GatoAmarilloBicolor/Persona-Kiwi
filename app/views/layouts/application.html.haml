@@ -1,0 +1,54 @@
+!!! 5
+%html{ lang: I18n.locale }
+  %head
+    %meta{ charset: 'utf-8' }/
+
+    %meta{ name: 'viewport', content: 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover' }/
+
+    - if cdn_host?
+      %link{ rel: 'dns-prefetch', href: cdn_host }/
+
+    - if storage_host?
+      %link{ rel: 'dns-prefetch', href: storage_host }/
+
+    %link{ rel: 'icon', href: favicon_path, type: 'image/x-icon' }/
+    %link{ rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }/
+    %link{ rel: 'mask-icon', href: '/mask-icon.svg', color: '#2B90D9' }/
+        
+    %link{ href: "splash/light/iphone5_splash.png", media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/iphone6_splash.png", media: '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/iphoneplus_splash.png", media: '(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/iphonex_splash.png", media: '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/iphonexr_splash.png", media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/iphonexsmax_splash.png", media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/ipad_splash.png", media: '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/ipadpro1_splash.png", media: '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/ipadpro3_splash.png", media: '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)', rel: 'apple-touch-startup-image' }/
+    %link{ href: "splash/light/ipadpro2_splash.png", media: '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)', rel: 'apple-touch-startup-image' }/
+
+    %link{ rel: 'manifest', href: '/manifest.json' }/
+    %meta{ name: 'msapplication-config', content: '/browserconfig.xml' }/
+    %meta{ name: 'theme-color', content: '#21D07B' }/
+    %meta{ name: 'apple-mobile-web-app-capable', content: 'yes' }/
+    %meta{ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }/
+
+    - if @status && @account
+      = render 'statuses/meta', status: @status, account: @account
+    - elsif @account && @account.local?
+      = render 'accounts/meta', account: @account, older_url: nil, newer_url: nil
+    - elsif @group
+      = render 'groups/meta', group: @group
+    - else
+      %meta{ name: 'description', content: 'Gab is a social network that champions free speech, individual liberty and the free flow of information online. All are welcome.' }/
+
+    %title= content_for?(:page_title) ? safe_join([yield(:page_title).chomp.html_safe, title], ' - ') : title
+
+    = stylesheet_pack_tag 'common', media: 'all'
+    = javascript_pack_tag 'common', integrity: true, crossorigin: 'anonymous'
+    = javascript_pack_tag "locale_#{I18n.locale}", integrity: true, crossorigin: 'anonymous'
+    = csrf_meta_tags
+
+    = yield :header_tags
+
+  %body{ class: body_classes }
+    = content_for?(:content) ? yield(:content) : yield

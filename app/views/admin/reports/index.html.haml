@@ -1,0 +1,81 @@
+- content_for :page_title do
+  = t('admin.reports.title')
+  = "(#{@reports.length})"
+
+.filters
+  .filter-subset
+    %strong= t('admin.reports.status')
+    %ul
+      %li= filter_link_to t('admin.reports.unresolved'), resolved: nil
+      %li= filter_link_to t('admin.reports.resolved'), resolved: '1'
+
+- if @categories.present?
+  .filters
+    .filter-subset
+      %strong= 'Categories'
+      %ul
+        %li= filter_link_to 'All', category: nil
+        - @categories.each do |(category, count)|
+          %li= filter_link_to "#{category || 'Not Specified'} (#{count})", category: category || ''
+
+= form_tag admin_reports_url, method: 'GET', class: 'simple_form' do
+  .fields-group
+    .input.string.optional
+      = text_field_tag :comment, params[:comment], class: 'string optional', placeholder: "Comment"
+
+    .actions
+      %button= t('admin.accounts.search')
+      = link_to t('admin.accounts.reset'), admin_reports_path, class: 'button negative'
+
+- @reports.group_by(&:target_account_id).each do |target_account_id, reports|
+  - target_account = reports.first.target_account
+  .report-card
+    .report-card__profile
+      = account_link_to target_account, '', size: 36, path: admin_account_path(target_account.id)
+      .report-card__profile__stats
+        %div{ :style => "display:flex;flex-direction:row;margin-bottom:4px;" }
+          - if target_account.is_spam?
+            %span{ :style => "display:inline-block;margin-right:4px;font-size:12px;background-color:#781600;border-radius:6px;color:#fff;width:40px;line-height:22px;font-weight:600;text-align:center;padding:2px 0 0 6px;" } SPAM
+          - if target_account.is_pro
+            %span{ :style => "display:inline-block;margin-right:4px;font-size:12px;background-color:#FFD700;border-radius:6px;color:#292929;width:24px;line-height:22px;font-weight:600;text-align:center;padding:2px 0 0 2px;" } P
+          - if target_account.is_verified
+            %span{ :style => "display:inline-block;margin-right:4px;font-size:12px;background-color:#fff;border-radius:6px;color:#292929;width:24px;line-height:22px;font-weight:600;text-align:center;padding:2px 0 0 2px;" } V
+          - if target_account.is_donor
+            %span{ :style => "display:inline-block;margin-right:4px;font-size:12px;background-color:#4EA6FF;border-radius:6px;color:#292929;width:24px;line-height:22px;font-weight:600;text-align:center;padding:2px 0 0 2px;" } D
+          - if target_account.is_investor
+            %span{ :style => "display:inline-block;font-size:12px;background-color:#6DD900;border-radius:6px;color:#292929;width:24px;line-height:22px;font-weight:600;text-align:center;padding:2px 0 0 2px;" } I
+        - if target_account.suspended?
+          %span.red= t('admin.accounts.suspended')
+        - elsif target_account.silenced?
+          %span.red= t('admin.accounts.silenced')
+        - elsif target_account.user&.disabled?
+          %span.red= t('admin.accounts.disabled')
+        - else
+          %span.neutral= t('admin.accounts.no_limits_imposed')
+    .report-card__summary
+      - reports.each do |report|
+        = link_to admin_report_path(report), class: "report-card__summary__item", style: "text-decoration:none;text-decoration: none;padding:10px;color: #999;font-size:15px;" do
+          .report-card__summary__item__reported-by{style: "padding: 10px 0 0 0;"}
+            - if report.account.local?
+              = admin_account_basic report.account
+            - else
+              = report.account.domain
+          .report-card__summary__item__content{style: "max-width: calc(100% - 370px)!important;"}
+            .one-line= report.comment.presence || t('admin.reports.comment.none')
+
+            %span.report-card__summary__item__content__icon{ title: t('admin.accounts.statuses') }
+              = fa_icon('comment')
+              = report.statuses.count
+
+            %span.report-card__summary__item__content__icon{ title: t('admin.accounts.media_attachments') }
+              = fa_icon('camera')
+              = report.media_attachments.count
+
+            %span.report-card__summary__item__content__icon{ title: 'Category' }
+              - if report.category.present?
+                = fa_icon('tag')
+                = report.category
+
+          .report-card__summary__item__assigned.hidden-sm{style: "width:220px;text-align:right;padding: 10px 0 0 0;"}
+            %time.formatted{ datetime: report.created_at.iso8601 }
+= paginate @reports

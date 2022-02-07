@@ -1,0 +1,121 @@
+- content_for :page_title do
+  = @group.title
+
+-# : todo :
+-# add/remove admin
+-# add/remove moderator
+-# feature/unfeature
+-# delete
+-# view accounts
+-# view removed accounts
+
+.card.h-card{:style => "height:300px"}
+  .card__img{:style => "height:300px"}
+    = image_tag full_asset_url(@group.cover_image.url), alt: '', :style => "height:300px"
+
+.dashboard__counters{ style: 'margin-top: 10px' }
+  %div
+    %a{href: "/admin/statuses?group_id=#{@group.id}"}
+      .dashboard__counters__num= number_with_delimiter Status.where(group:@group).count
+      .dashboard__counters__label Status Count
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter @group.accounts.count
+      .dashboard__counters__label Member Count
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter @group.removed_accounts.count
+      .dashboard__counters__label Removed Members Count
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter @group.join_requests.count
+      .dashboard__counters__label Member Requests Count
+  %div
+    %div
+      .dashboard__counters__num
+        %time.formatted{ datetime: @group.created_at.iso8601, title: l(@group.created_at) }= l(@group.created_at)
+      .dashboard__counters__label Created
+
+= simple_form_for(@group, url: admin_group_path(@group.id), html: { method: :put }) do |f|
+  = render 'shared/error_messages', object: @group
+
+  .fields-group
+    = f.input :title, wrapper: :with_label, label: 'Title'
+
+  .fields-group
+    = f.input :description, wrapper: :with_label, label: 'Description'
+  
+  .fields-group
+    = f.input :slug, wrapper: :with_label, label: 'Slug'
+  
+  .fields-group
+    = f.input :tags, wrapper: :with_label, label: 'Tags'
+
+  .fields-group
+    = f.input :is_nsfw, as: :boolean, wrapper: :with_label, label: 'Is NSFW?'
+
+  .fields-group
+    = f.input :is_featured, as: :boolean, wrapper: :with_label, label: 'Is Featured?'
+
+  .fields-group
+    = f.input :is_private, as: :boolean, wrapper: :with_label, label: 'Is Private?'
+
+  .fields-group
+    = f.input :is_visible, as: :boolean, wrapper: :with_label, label: 'Is Visible?'
+
+  .fields-group
+    = f.input :is_archived, as: :boolean, wrapper: :with_label, label: 'Is Archived?'
+
+  .actions
+    = f.button :button, t('generic.save_changes'), type: :submit
+
+%br
+%hr
+%br
+
+%span Group Admins and Moderators
+%br
+%br
+
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th= t('admin.accounts.username')
+        %th Role
+    %tbody
+      %tr
+        %td{style: "display:flex;flex-direction:row;align-items:center;"}
+          = admin_account_link_to(@group.account)
+          %div{style:"margin-left:10px;"}= render 'admin/accounts/account_flags_block', :account => @group.account
+        %td
+          %span Group Creator
+      - @admins.each do |acct|
+        %tr
+          %td{style: "display:flex;flex-direction:row;align-items:center;"}
+            = admin_account_link_to(acct.account)
+            %div{style:"margin-left:10px;"}= render 'admin/accounts/account_flags_block', :account => acct.account
+          %td
+            %span Admin
+      - @mods.each do |acct|
+        %tr
+          %td{style: "display:flex;flex-direction:row;align-items:center;"}
+            = admin_account_link_to(acct.account)
+            %div{style:"margin-left:10px;"}= render 'admin/accounts/account_flags_block', :account => acct.account
+          %td
+            %span Moderator
+
+
+%br
+%hr
+%br
+
+.actions
+  = table_link_to 'arrow-up', 'Make me Admin', make_me_admin_admin_group_path(@group.id), method: :post, data: { confirm: t('admin.accounts.are_you_sure') }
+
+%br
+%hr
+%br
+
+.actions
+  = table_link_to 'times', 'Delete Group', admin_group_path(@group.id), method: :delete, data: { confirm: t('admin.accounts.are_you_sure') }

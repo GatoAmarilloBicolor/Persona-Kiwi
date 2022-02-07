@@ -1,0 +1,20 @@
+- i ||= 0
+
+%td.in-email-status{ class: i.zero? ? 'content-start' : nil, :style => "display:block;width:100%;margin-bottom:5px;" }
+  %table{ cellspacing: 0, cellpadding: 0, :style => "margin:15px 0;width:100%;" }
+    %tbody
+      %tr
+        %td{ :style => "padding:10px 15px;border:1px solid #D3D3D5;border-radius:8px;" }
+          %table{ cellspacing: 0, cellpadding: 0 }
+            %tbody
+              %tr
+                %td{ align: 'left', width: 40, height: 40 }
+                  = image_tag full_asset_url(status.account.avatar.url), alt:'', :style => "height:40px;width:40px;border-radius:9999px;overflow:hidden;"
+                %td{ align: 'left', :style => "color:#000;font-size:16px;padding:5px 10px;" }
+                  = "@#{status.account.username}"
+
+          %div{ :style => "margin-top:10px;" }
+            = Formatter.instance.plaintext(status)
+
+          %p
+            = link_to l(status.created_at), web_url("#{status.account.username}/posts/#{status.id}")

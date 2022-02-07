@@ -1,0 +1,11 @@
+%tr
+  %td= verification_request.id
+  %td
+    %span
+      = link_to verification_request.account.display_name, admin_account_url(verification_request.account.id)
+      %span{ :style => "color:#bbb;margin-left:5px;" }= "@#{verification_request.account.username}"
+  %td= verification_request.created_at
+  %td
+    = table_link_to 'download', t('verifications.moderation.view_proof'), verification_request.image.url, target: "_blank"
+    = table_link_to 'checkmark', t('verifications.moderation.approve'), settings_verifications_approve_url(verification_request.id)
+    = table_link_to 'checkmark', t('verifications.moderation.reject'), settings_verifications_reject_url(verification_request.id)

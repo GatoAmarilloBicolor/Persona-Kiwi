@@ -1,0 +1,44 @@
+---
+:concurrency: 5
+:queues:
+  - [default, 6]
+  - [push, 4]
+  - [mailers, 2]
+  - [pull]
+:schedule:
+  introduce_pro_scheduler:
+    cron: '0 8 * * *'
+    class: Scheduler::IntroduceProScheduler
+  remind_expired_pro_scheduler:
+    cron: '0 8 * * *'
+    class: Scheduler::RemindExpiredProScheduler
+  expiring_pro_scheduler:
+    cron: '0 7 * * *'
+    class: Scheduler::ExpiringProScheduler
+  scheduled_statuses_scheduler:
+    every: '1m'
+    class: Scheduler::ScheduledStatusesScheduler
+  expiring_chat_messages_scheduler:
+    every: '1m'
+    class: Scheduler::ExpiringChatMessagesScheduler
+  media_cleanup_scheduler:
+    cron: '<%= Random.rand(0..59) %> <%= Random.rand(3..5) %> * * *'
+    class: Scheduler::MediaCleanupScheduler
+  feed_cleanup_scheduler:
+    cron: '<%= Random.rand(0..59) %> <%= Random.rand(0..2) %> * * *'
+    class: Scheduler::FeedCleanupScheduler
+  doorkeeper_cleanup_scheduler:
+    cron: '<%= Random.rand(0..59) %> <%= Random.rand(0..2) %> * * 0'
+    class: Scheduler::DoorkeeperCleanupScheduler
+  ip_cleanup_scheduler:
+    cron: '<%= Random.rand(0..59) %> <%= Random.rand(3..5) %> * * *'
+    class: Scheduler::IpCleanupScheduler
+  email_scheduler:
+    cron: '0 10 * * 2'
+    class: Scheduler::EmailScheduler
+  backup_cleanup_scheduler:
+    cron: '<%= Random.rand(0..59) %> <%= Random.rand(3..5) %> * * *'
+    class: Scheduler::BackupCleanupScheduler
+  pghero_scheduler:
+    cron: '0 0 * * *'
+    class: Scheduler::PgheroScheduler

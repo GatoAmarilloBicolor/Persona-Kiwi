@@ -1,0 +1,14 @@
+- content_for :page_title do
+  = "#{display_name(account)} (@#{account.username}) • #{site_hostname}"
+
+- content_for :header_tags do
+  - if account.user&.setting_noindex
+    %meta{ name: 'robots', content: 'noindex' }/
+
+  = opengraph 'og:type', 'profile'
+  = render 'accounts/og', account: account, url: "https://gab.com/#{account.username}"
+
+  - if older_url
+    %link{ rel: 'next', href: older_url }/
+  - if newer_url
+    %link{ rel: 'prev', href: newer_url }/

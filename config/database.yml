@@ -1,0 +1,57 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
+  timeout: 5000
+  encoding: unicode
+  sslmode: <%= ENV['DB_SSLMODE'] || "prefer" %>
+  prepared_statements: <%= ENV['PREPARED_STATEMENTS'] || 'false' %>
+
+development:
+  primary:
+    <<: *default
+    url: <%= ENV['DB_MASTER_URL'] %>
+  slave1:
+    <<: *default
+    url: <%= ENV['DB_SLAVE1_URL'] %>
+    replica: true
+  slave2:
+    <<: *default
+    url: <%= ENV['DB_SLAVE2_URL'] %>
+    replica: true
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  primary:
+    <<: *default
+    url: postgres:///gabsocial_test<%= ENV['TEST_ENV_NUMBER'] %>
+  slave1:
+    <<: *default
+    url: postgres:///gabsocial_test<%= ENV['TEST_ENV_NUMBER'] %>
+    replica: true
+  slave2:
+    <<: *default
+    url: postgres:///gabsocial_test<%= ENV['TEST_ENV_NUMBER'] %>
+    replica: true
+
+#production:
+#  <<: *default
+#  database: <%= ENV['DB_NAME'] || 'gabsocial_production' %>
+#  username: <%= ENV['DB_USER'] || 'gabsocial' %>
+#  password: <%= ENV['DB_PASS'] || '' %>
+#  host: <%= ENV['DB_HOST'] || 'localhost' %>
+#  port: <%= ENV['DB_PORT'] || 5432 %>
+#  prepared_statements: <%= ENV['PREPARED_STATEMENTS'] || 'true' %>
+production:
+  primary:
+    <<: *default
+    url: <%= ENV['DB_MASTER_URL'] %>
+  slave1:
+    <<: *default
+    url: <%= ENV['DB_SLAVE1_URL'] %>
+    replica: true
+  slave2:
+    <<: *default
+    url: <%= ENV['DB_SLAVE1_URL'] %>
+    replica: true

@@ -1,0 +1,36 @@
+%tr
+  %td{:align => "center", :style => ""}
+    %h1{:style => "margin:0;font-weight:bold;font-size:20px;color:#444;text-align:center;"}= t 'user_mailer.welcome.title', name: @resource.account.username
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;color:#444;margin:15px 0;text-align:left;"} We are so happy to have you. Here are a few tips to get you started.
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } 1. You won't find Gab on the Big Tech app stores because
+            = link_to "we refused to censor speech", "https://news.gab.com/2020/08/02/gab-free-speech-radio-episode-3-why-is-gab-banned-from-apple-and-google-app-stores", :style => "color:#30CE7D;font-size:16px;font-weight:600;text-decoration:underline;"
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } on behalf of Apple and Google, but
+            = link_to "click here", "https://help.gab.com/article/gab-mobile-app", :style => "color:#30CE7D;font-size:16px;font-weight:600;text-decoration:underline;"
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } to learn how to install the Gab mobile app on your phone in just a few clicks.
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } 2. Introduce yourself to the Gab community and meet new friends, ask questions and more in our
+            = link_to "'Introduce Yourself'", "https://gab.com/groups/12", :style => "color:#30CE7D;font-size:16px;font-weight:600;text-decoration:underline;"
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } Gab group.
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } 3. Speak freely!
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle;padding-top:10px;padding-bottom:30px;"}
+    %table{ align: 'center', cellspacing: 0, cellpadding: 0 }
+      %tbody
+        %tr
+          %td{ :style => "background-color:#30CE7D;height:56px;border-radius:9999px;color:#fff;" }
+            = link_to "Go to Gab Home", "https://gab.com/home", :style => "height:56px;padding:20px 30px;text-decoration:none;color:#fff;font-size:16px;margin:0;"

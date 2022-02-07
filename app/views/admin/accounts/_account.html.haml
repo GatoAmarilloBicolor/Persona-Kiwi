@@ -1,0 +1,17 @@
+%tr
+  %td
+    = admin_account_link_to(account)
+  %td
+    - if account.user_current_sign_in_at
+      %time.time-ago{ datetime: account.user_current_sign_in_at.iso8601, title: l(account.user_current_sign_in_at) }= l account.user_current_sign_in_at
+    - else
+      \-
+  %td
+    - if account.user_current_sign_in_ip
+      = account.user_current_sign_in_ip
+    - else
+      \-
+  %td
+    %samp= number_with_delimiter account.statuses.count
+  %td
+    = render 'admin/accounts/account_flags_block', :account => account

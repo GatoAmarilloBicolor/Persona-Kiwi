@@ -1,0 +1,9 @@
+%tr
+  %td= group.id
+  %td= group.title
+  %td= group.member_count
+  %td
+    - if group.is_featured?
+      %span Y
+  %td
+    = table_link_to '', 'Edit', admin_group_path(group)
