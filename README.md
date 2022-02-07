@@ -6,7 +6,7 @@
 
 Personal SocialNetwork is an open source and fully decentralized social network powered by the Gab Platform. This pretend to be a FORK of GAB.Com, should be a open source federated facebook clone.
 
-## Personal dont have any relationship with GAB or their ideologys, here only take the source and will try to open it to everybody, this is not GAB, this is a totally new FORK with no the GAB political connotations.
+## Personal(Kiwi) dont have any relationship with GAB or their ideologys, here only take the source and will try to open it to everybody, this is not GAB, this is a totally new FORK with no the GAB political connotations.
 
 #GAB
 
