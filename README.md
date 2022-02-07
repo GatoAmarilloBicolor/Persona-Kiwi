@@ -4,13 +4,20 @@
 ( Is a Work in progress and i dont know if it really works, test under your own risk)
 
 
-Personal SocialNetwork is an open source and fully decentralized social network powered by the Gab Platform. It is the new social network of Gab.com. This change was made to further Gab's committment to it's users trust and privacy online. And, by offering decentralization and federation, Gab further demonstrates a lack of interest in the ownership of your data.
+Personal SocialNetwork is an open source and fully decentralized social network powered by the Gab Platform. This pretend to be a FORK of GAB.Com, should be a open source federated facebook clone.
+
+#GAB
+
+It is the new social network of Gab.com. This change was made to further Gab's committment to it's users trust and privacy online. And, by offering decentralization and federation, Gab further demonstrates a lack of interest in the ownership of your data.
 
 The Gab Social project is based on the [Mastodon](https://github.com/tootsuite/mastodon) project, and is licensed under the terms and conditions of AGPL-3.0. While we will be keeping this license, over time we will be keeping less and less of the original project's source code and approach.
 
 Our goal is to establish the foundation of a federated network of social networks. Our first step is our move to this technology, which immediately enables the construction of that network and provides the tools people will need to create and build. Over time, a new implementation of this system will emerge that is entirely based on Node.js, moves away from Postgres as it's database, and becomes part of the HYDRA family.
 
 ## Project goals
+
+Want to reactivate the fediverse on the gab source, and include pages and page moderation.
+
 
 We have diverged from Mastodon in several ways in pursuit of our own goals.
 
