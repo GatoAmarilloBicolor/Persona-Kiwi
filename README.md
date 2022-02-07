@@ -8,7 +8,7 @@ Personal SocialNetwork is an open source and fully decentralized social network 
 
 ## Personal(Kiwi) dont have any relationship with GAB or their ideologys, here only take the source and will try to open it to everybody, this is not GAB, this is a totally new FORK with no the GAB political connotations.
 
-## This is a Work IN PROGRESS, USE IT UNDER YOUR OWN RISK
+## This is a Work IN PROGRESS and  still changing, USE IT UNDER YOUR OWN RISK
 
 # GAB
 
